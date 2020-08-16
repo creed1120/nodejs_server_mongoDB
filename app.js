@@ -4,17 +4,35 @@
  */
 
 const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+
 const port = 9900;
 
 // Express App
 const app = express();
+const dbURI = `mongodb+srv://creed1120:F00tb@ll1120@expressserver.ffxur.gcp.mongodb.net/express_server?retryWrites=true&w=majority`;
 
-// Listen for requests
-app.listen(port, () => {
-  console.log(`app is running at http://localhost:${port}`);
-});
+(async () => {
+  await mongoose
+    .connect(dbURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then((result) => {
+      // Listen for requests
+      app.listen(port, () => {
+        console.log(`app is running at http://localhost:${port}`);
+      });
+      console.log("Connected to database Successfully!");
+    })
+    .catch((error) => {
+      console.log("Connection Error");
+    });
+})();
 
 // Static Files Middleware
+app.use(morgan("dev"));
 app.use(express.static("public"));
 
 // Register view engine

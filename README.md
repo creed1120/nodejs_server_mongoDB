@@ -3,4 +3,10 @@
 Setup of Node.js Server from scratch files in "\_practice_files folder".<br>
 Using MongoDB for database and User Authentication w/ JWT.
 
-- Dependencies:
+## Dependencies:
+
+- EXPRESS
+- ejs
+- Mongoose
+- Morgan
+- lodash

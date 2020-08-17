@@ -1,9 +1,8 @@
-/***************************
- *
- *   EXPRESS Server Setup
- *   Author: Cedric Reed
- *
- **************************/
+/*****************************************
+ *     EXPRESS Server Setup
+ *     Author: Cedric Reed
+ *     Date: 8.16.2020
+ ****************************************/
 
 const express = require("express");
 const morgan = require("morgan");

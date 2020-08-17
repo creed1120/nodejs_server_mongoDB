@@ -51,68 +51,52 @@ app.set("view engine", "ejs");
  ********************************************************/
 
 // Add a new blog
-app.get("/add-blog", (req, res) => {
-  const blog = new Blog({
-    title: "New Blog 2",
-    snippet: "About my new blog 2",
-    body: "More about my new added blog from the Schema",
-  });
-  blog
-    .save()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
+// app.get("/add-blog", (req, res) => {
+//   const blog = new Blog({
+//     title: "New Blog 2",
+//     snippet: "About my new blog 2",
+//     body: "More about my new added blog from the Schema",
+//   });
+//   blog
+//     .save()
+//     .then((result) => {
+//       res.send(result);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// });
 
 // Get ALL blogs
-app.get("/all-blogs", (req, res) => {
-  Blog.find()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// app.get("/all-blogs", (req, res) => {
+//   Blog.find()
+//     .then((result) => {
+//       res.send(result);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
 // Get a Single blog
-app.get("/single-blog", (req, res) => {
-  Blog.findById(`5f39bd1224e3e411791747bc`)
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// app.get("/single-blog", (req, res) => {
+//   Blog.findById(`5f39c967be045911f913dd46`)
+//     .then((result) => {
+//       res.send(result);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
 /******************************
- *      Routes
+ *      Main Routes
  *****************************/
 app.get("/", (req, res) => {
   //res.send("<h2>Home Page</h2>");
 
-  const blogs = [
-    {
-      title: "Yoshi finds eggs",
-      snippet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-    },
-    {
-      title: "Mario finds stars",
-      snippet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-    },
-    {
-      title: "Save the world",
-      snippet: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-    },
-  ];
-
   res.render("index", {
     title: "Home",
-    blogs,
   });
 });
 
@@ -123,6 +107,26 @@ app.get("/about", (req, res) => {
   });
 });
 
+/******************************
+ *     Blog Routes
+ *****************************/
+
+// Get ALL Blogs from mongoDB
+app.get("/blogs", (req, res) => {
+  Blog.find()
+    .sort({ createdAt: -1 })
+    .then((result) => {
+      res.render("blogs", {
+        title: "All Blogs",
+        blogs: result,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// Create a new blog page
 app.get("/blogs/create", (req, res) => {
   res.render("create", {
     title: "Create New Blog",

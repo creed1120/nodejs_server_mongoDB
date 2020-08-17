@@ -8,38 +8,39 @@
       <p>Enter your info to create a new blog post.</p>
 
       <div class="new-blog">
-        <form>
+        <form action="/blogs" method="POST">
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            <label for="title">Blog Title</label>
             <input
-              type="email"
+              type="text"
               class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
+              id="title"
+              name="title"
+              aria-describedby="title"
+              required
             />
-            <small id="emailHelp" class="form-text text-muted"
-              >We'll never share your email with anyone else.</small
-            >
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label for="snippet">Blog Snippet</label>
             <input
-              type="password"
+              type="text"
               class="form-control"
-              id="exampleInputPassword1"
+              id="snippet"
+              name="snippet"
+              required
             />
           </div>
-          <div class="form-group form-check">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              id="exampleCheck1"
-            />
-            <label class="form-check-label" for="exampleCheck1"
-              >Check me out</label
-            >
+          <div class="form-group">
+            <label for="body">Blog Body</label>
+            <textarea
+              class="form-control"
+              id="body"
+              name="body"
+              rows="4"
+              required
+            ></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>

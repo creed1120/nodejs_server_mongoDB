@@ -9,3 +9,19 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.blog-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+svg,
+.blog-wrapper img {
+  width: 25px;
+  height: 25px;
+}
+
+.blog-wrapper img {
+  cursor: pointer;
+}

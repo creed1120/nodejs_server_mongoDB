@@ -1,0 +1,47 @@
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <%- include("./partials/nav.ejs") %>
+
+    <div class="container">
+      <div class="all-blogs">
+        <hr />
+
+        <div class="blog-wrapper">
+          <div class="blog-content">
+            <h2><%= blog.title %></h2>
+            <p><%= blog.body %></p>
+          </div>
+
+          <a
+            ><img
+              class="delete"
+              src="/icons/bin-2.svg"
+              data-doc="<%= blog._id %>"
+              alt="Delete Icon"
+          /></a>
+        </div>
+      </div>
+    </div>
+
+    <%- include("./partials/footer.ejs") %>
+  </body>
+
+  <!--============================================
+      Vanilla Javascript to delete a Blog Entry
+    ============================================-->
+  <script>
+    const trashcan = document.querySelector(".delete");
+
+    trashcan.addEventListener("click", (e) => {
+      const endpoint = `/blogs/${trashcan.dataset.doc}`;
+
+      fetch(endpoint, {
+        method: "DELETE",
+      })
+        .then((response) => response.json())
+        .then((data) => (window.location.href = data.redirect))
+        .catch((err) => console.log(err));
+    });
+  </script>
+</html>

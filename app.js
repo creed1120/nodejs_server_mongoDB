@@ -30,15 +30,17 @@ const dbURI = `mongodb+srv://creed1120:F00tb@ll1120@expressserver.ffxur.gcp.mong
       });
       console.log("Connected to database Successfully!");
     })
-    .catch((error) => {
-      console.log("Connection Error");
+    .catch((err) => {
+      console.log(err);
     });
 })();
 
 /******************************
- *  Static Files Middleware
+ *  Static Files and Middleware
  *****************************/
 app.use(morgan("dev"));
+// Except the Form Data from Create Blog Form
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 /******************************
@@ -126,10 +128,49 @@ app.get("/blogs", (req, res) => {
     });
 });
 
-// Create a new blog page
+// Create Page w/ form
 app.get("/blogs/create", (req, res) => {
   res.render("create", {
     title: "Create New Blog",
+  });
+});
+
+// adds the data from the Create Blog Form to mongoDB on submit
+app.post("/blogs", (req, res) => {
+  const blog = new Blog(req.body);
+
+  blog
+    .save()
+    .then((result) => {
+      res.redirect("/blogs");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+
+  Blog.findById(id)
+    .then((result) => {
+      res.render("details", {
+        blog: result,
+        title: "Blog Details",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.delete("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+
+  Blog.findByIdAndDelete(id).then((result) => {
+    res.json({
+      redirect: "/blogs",
+    });
   });
 });
 

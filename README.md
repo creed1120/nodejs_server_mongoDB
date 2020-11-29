@@ -6,7 +6,7 @@ Using MongoDB for database and User Authentication w/ JWT.
 ## Dependencies:
 
 - EXPRESS
-- ejs
+- EJS Template Engine
 - Mongoose
 - Morgan
 - lodash
